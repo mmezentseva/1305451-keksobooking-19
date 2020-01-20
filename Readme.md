@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Marina Mezentseva](https://up.htmlacademy.ru/javascript/19/user/1305451).
-* Наставник: `Неизвестно`.
+* Наставник: Руфат Хасларов.
 
 ---
 
