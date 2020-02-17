@@ -126,49 +126,39 @@ var mainPinActiveY = mainPinY + MAINPIN_AFTER_HEIGHT;
 var mainPinCoordinate = mainPinX + ',' + mainPinY;
 var mainPinCoordinateActive = mainPinX + ',' + mainPinActiveY;
 
-var toggleElementAvailability = function () {
+var toggleElementAvailability = function (elements, status) {
+  for (var i = 0; i < elements.length; i++) {
+    elements[i].disabled = status;
+  }
+};
+
+var deactivateMap = function () {
 
   fieldsetHeader.setAttribute('disabled', 'disabled');
   addressForm.setAttribute('value', mainPinCoordinate);
   mapFilters.classList.add('map__filters--disabled');
-
-  var makeFormDisabled = function () {
-    for (var i = 0; i < formInput.length; i++) {
-      formInput[i].setAttribute('disabled', 'disabled');
-    }
-  };
-  makeFormDisabled();
+  toggleElementAvailability(formInput, true);
 };
-toggleElementAvailability();
 
-var firstClick = true;
-var activatePageHandler = function () {
-  if (firstClick) {
+deactivateMap();
+
+var activatePageHandler = function (evt) {
+  if (evt.which === 1 || evt.key === ENTER_KEY) {
     renderPins();
-    map.classList.remove('map--faded');
-    fieldsetHeader.removeAttribute('disabled');
-    formAd.classList.remove('ad-form--disabled');
-    mapFilters.classList.remove('map__filters--disabled');
-    addressForm.setAttribute('value', mainPinCoordinateActive);
-
-    for (var j = 0; j < formInput.length; j++) {
-      formInput[j].removeAttribute('disabled');
-    }
-    firstClick = false;
+    mapPinMain.removeEventListener('mousedown', activatePageHandler);
+    mapPinMain.removeEventListener('keydown', activatePageHandler);
   }
+
+  map.classList.remove('map--faded');
+  fieldsetHeader.removeAttribute('disabled');
+  formAd.classList.remove('ad-form--disabled');
+  mapFilters.classList.remove('map__filters--disabled');
+  addressForm.setAttribute('value', mainPinCoordinateActive);
+  toggleElementAvailability(formInput, false);
 };
 
-mapPinMain.addEventListener('mousedown', function (evt) {
-  if (evt.which === 1) {
-    activatePageHandler();
-  }
-});
-
-mapPinMain.addEventListener('keydown', function (evt) {
-  if (evt.key === ENTER_KEY) {
-    activatePageHandler();
-  }
-});
+mapPinMain.addEventListener('mousedown', activatePageHandler);
+mapPinMain.addEventListener('keydown', activatePageHandler);
 
 var findDisabledEl = function () {
 
@@ -206,11 +196,16 @@ roomNumber.addEventListener('change', function () {
   var capacityLenght = capacity.options.length;
 
   for (var k = 0; k < capacityLenght - 1; k++) {
-    capacity.options[capacityLenght - 1].disabled = true;
-    if (k < index) {
+    if (index === capacityLenght - 1) {
+      capacity.options[index].disabled = false;
       capacity.options[k].disabled = true;
     } else {
-      capacity.options[k].disabled = false;
+      capacity.options[capacityLenght - 1].disabled = true;
+      if (k < index) {
+        capacity.options[k].disabled = true;
+      } else {
+        capacity.options[k].disabled = false;
+      }
     }
   }
 });
