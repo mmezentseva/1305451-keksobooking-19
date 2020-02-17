@@ -116,49 +116,61 @@ var mapPinMain = document.querySelector('.map__pin--main');
 var capacity = document.querySelector('#capacity');
 var roomNumber = document.querySelector('#room_number');
 
-var mainPinX = parseInt(mapPinMain.style.left, RADIX_NUMBER) + Math.round(mapPinMain.offsetWidth / HALF);
-var mainPinY = parseInt(mapPinMain.style.top, RADIX_NUMBER) + Math.round(mapPinMain.offsetHeight / HALF);
+var getCoordinates = function (point, size) {
+  return parseInt(point, RADIX_NUMBER) + Math.round(size / HALF);
+};
+
+var mainPinX = getCoordinates(mapPinMain.style.left, mapPinMain.offsetWidth);
+var mainPinY = getCoordinates(mapPinMain.style.top, mapPinMain.offsetHeight);
 var mainPinActiveY = mainPinY + MAINPIN_AFTER_HEIGHT;
 var mainPinCoordinate = mainPinX + ',' + mainPinY;
 var mainPinCoordinateActive = mainPinX + ',' + mainPinActiveY;
 
-fieldsetHeader.setAttribute('disabled', 'disabled');
-addressForm.setAttribute('value', mainPinCoordinate);
-mapFilters.classList.add('map__filters--disabled');
+var toggleElementAvailability = function () {
 
-var makeFormDisabled = function () {
-  for (var i = 0; i < formInput.length; i++) {
-    formInput[i].setAttribute('disabled', 'disabled');
-  }
+  fieldsetHeader.setAttribute('disabled', 'disabled');
+  addressForm.setAttribute('value', mainPinCoordinate);
+  mapFilters.classList.add('map__filters--disabled');
+
+  var makeFormDisabled = function () {
+    for (var i = 0; i < formInput.length; i++) {
+      formInput[i].setAttribute('disabled', 'disabled');
+    }
+  };
+  makeFormDisabled();
 };
-makeFormDisabled();
+toggleElementAvailability();
 
-var pageMakeActiveHandler = function () {
-  renderPins();
-  map.classList.remove('map--faded');
-  fieldsetHeader.removeAttribute('disabled');
-  formAd.classList.remove('ad-form--disabled');
-  mapFilters.classList.remove('map__filters--disabled');
-  addressForm.setAttribute('value', mainPinCoordinateActive);
+var firstClick = true;
+var activatePageHandler = function () {
+  if (firstClick) {
+    renderPins();
+    map.classList.remove('map--faded');
+    fieldsetHeader.removeAttribute('disabled');
+    formAd.classList.remove('ad-form--disabled');
+    mapFilters.classList.remove('map__filters--disabled');
+    addressForm.setAttribute('value', mainPinCoordinateActive);
 
-  for (var j = 0; j < formInput.length; j++) {
-    formInput[j].removeAttribute('disabled');
+    for (var j = 0; j < formInput.length; j++) {
+      formInput[j].removeAttribute('disabled');
+    }
+    firstClick = false;
   }
 };
 
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.which === 1) {
-    pageMakeActiveHandler();
+    activatePageHandler();
   }
 });
 
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.key === ENTER_KEY) {
-    pageMakeActiveHandler();
+    activatePageHandler();
   }
 });
 
-capacity.addEventListener('change', function () {
+var findDisabledEl = function () {
 
   var index = capacity.options.selectedIndex;
   roomNumber.options[index].selected = true;
@@ -181,6 +193,10 @@ capacity.addEventListener('change', function () {
       }
     }
   }
+};
+
+capacity.addEventListener('change', function () {
+  findDisabledEl();
 });
 
 roomNumber.addEventListener('change', function () {
