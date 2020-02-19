@@ -140,8 +140,6 @@ var deactivateMap = function () {
   toggleElementAvailability(formInput, true);
 };
 
-deactivateMap();
-
 var activatePageHandler = function (evt) {
   if (evt.which === 1 || evt.key === ENTER_KEY) {
     renderPins();
@@ -168,19 +166,11 @@ var findDisabledEl = function () {
 
   if (index === roomNumberLenght - 1) {
     for (var j = 0; j < roomNumberLenght; j++) {
-      if (j < index) {
-        roomNumber.options[j].disabled = true;
-      } else {
-        roomNumber.options[j].disabled = false;
-      }
+      roomNumber.options[j].disabled = j < index;
     }
   } else {
     for (var k = 0; k < roomNumberLenght; k++) {
-      if (k > index) {
-        roomNumber.options[k].disabled = true;
-      } else {
-        roomNumber.options[k].disabled = false;
-      }
+      roomNumber.options[k].disabled = k > index;
     }
   }
 };
@@ -201,12 +191,9 @@ roomNumber.addEventListener('change', function () {
       capacity.options[k].disabled = true;
     } else {
       capacity.options[capacityLenght - 1].disabled = true;
-      if (k < index) {
-        capacity.options[k].disabled = true;
-      } else {
-        capacity.options[k].disabled = false;
-      }
+      capacity.options[k].disabled = k < index;
     }
   }
 });
 
+deactivateMap();
