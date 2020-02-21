@@ -4,7 +4,8 @@
   var capacity = document.querySelector('#capacity');
   var roomNumber = document.querySelector('#room_number');
 
-  window.findDisabledEl = function () {
+  var findDisabledEl = function () {
+
     var index = capacity.options.selectedIndex;
     roomNumber.options[index].selected = true;
     var roomNumberLenght = roomNumber.options.length;
@@ -19,18 +20,10 @@
       }
     }
   };
-})();
 
-(function () {
-  var capacity = document.querySelector('#capacity');
   capacity.addEventListener('change', function () {
-    window.findDisabledEl();
+    findDisabledEl();
   });
-})();
-
-(function () {
-  var capacity = document.querySelector('#capacity');
-  var roomNumber = document.querySelector('#room_number');
 
   roomNumber.addEventListener('change', function () {
 
@@ -49,3 +42,5 @@
     }
   });
 })();
+
+
