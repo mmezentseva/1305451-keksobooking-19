@@ -39,7 +39,7 @@
 
   var activatePageHandler = function (evt) {
     if (evt.which === 1 || evt.key === window.util.ENTER_KEY) {
-      window.pin.render();
+      window.load(window.pin.successHandler, window.pin.errorHandler);
       mapPinMain.removeEventListener('mousedown', activatePageHandler);
       mapPinMain.removeEventListener('keydown', activatePageHandler);
     }

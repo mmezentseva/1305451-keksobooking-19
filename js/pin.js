@@ -3,7 +3,6 @@
 (function () {
   var similarListElement = document.querySelector('.map__pins');
   var similarElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
-  var ADS_NUMBER = 8;
 
   var xOffset = similarElementTemplate.offsetWidth;
   var yOffset = similarElementTemplate.offsetTop;
@@ -19,19 +18,30 @@
     return newPinElement;
   };
 
-  var advertisements = window.card.generate(ADS_NUMBER);
-
-  var render = function () {
+  var successHandler = function (advertisements) {
     var fragment = document.createDocumentFragment();
+
     for (var i = 0; i < advertisements.length; i++) {
       fragment.appendChild(renderPinTemplate(advertisements[i]));
     }
     similarListElement.appendChild(fragment);
   };
 
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
   window.pin = {
-    render: render
+    successHandler: successHandler,
+    errorHandler: errorHandler
   };
 })();
-
 
