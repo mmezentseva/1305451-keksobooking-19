@@ -1,49 +1,34 @@
 'use strict';
 
 (function () {
-  var housingType = document.querySelector('#housing-type');
-  var currentValue;
-  var TIMEOUT_DEBOUNCE = 500;
-  var advertisements = [];
+  var similarListElement = document.querySelector('.map__pins');
+  var similarElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var ADS_NUMBERS = 5;
 
-  var updateAds = function () {
-    if (housingType.value === 'any') {
-      window.render(window.util.shuffle(advertisements));
-    } else {
-      var sameHousingType = advertisements.filter(function (it) {
-        return it.offer.type === currentValue;
-      });
-      window.render(sameHousingType);
+  var xOffset = similarElementTemplate.offsetWidth;
+  var yOffset = similarElementTemplate.offsetTop;
+
+  var renderPinTemplate = function (pin) {
+    var newPinElement = similarElementTemplate.cloneNode(true);
+
+    newPinElement.style.left = pin.location.x - xOffset + 'px';
+    newPinElement.style.top = pin.location.y - yOffset + 'px';
+    newPinElement.querySelector('img').src = pin.author.avatar;
+    newPinElement.querySelector('img').alt = pin.offer.title;
+
+    return newPinElement;
+  };
+
+  var render = function (data) {
+    similarListElement.innerHTML = '';
+    similarListElement.appendChild(mapPinMain);
+    var takeNumber = data.length > ADS_NUMBERS ? ADS_NUMBERS : data.length;
+    for (var i = 0; i < takeNumber; i++) {
+      similarListElement.appendChild(renderPinTemplate(data[i]));
     }
   };
-
-  housingType.addEventListener('change', function () {
-    currentValue = housingType.value;
-    window.setTimeout(function () {
-      updateAds();
-    }, TIMEOUT_DEBOUNCE);
-  });
-
-  var successHandler = function (data) {
-    advertisements = data;
-    var shuffleAds = window.util.shuffle(advertisements);
-    window.render(shuffleAds);
-  };
-
-  var errorHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
-  };
-
   window.pin = {
-    successHandler: successHandler,
-    errorHandler: errorHandler
+    render: render
   };
 })();
