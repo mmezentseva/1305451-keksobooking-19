@@ -6,13 +6,12 @@
   var formInput = document.querySelectorAll('.ad-form__element');
   var formAd = document.querySelector('.ad-form');
   var addressForm = document.querySelector('#address');
-  var mapFilters = document.querySelector('.map__filters');
+  var mapFilter = document.querySelectorAll('.map__filter');
   var mapPinMain = document.querySelector('.map__pin--main');
 
   var RADIX_NUMBER = 10;
   var HALF = 2;
   var MAINPIN_AFTER_HEIGHT = 22;
-  var OPACITY_OFF = 0;
 
   var getCoordinates = function (point, size) {
     return parseInt(point, RADIX_NUMBER) + Math.round(size / HALF);
@@ -34,7 +33,7 @@
 
     fieldsetHeader.setAttribute('disabled', 'disabled');
     addressForm.setAttribute('value', mainPinCoordinate);
-    mapFilters.style.opacity = OPACITY_OFF;
+    toggleElementAvailability(mapFilter, true);
     toggleElementAvailability(formInput, true);
   };
 
@@ -56,6 +55,10 @@
   mapPinMain.addEventListener('keydown', activatePageHandler);
 
   deactivateMap();
+
+  window.map = {
+    toggleElementAvailability: toggleElementAvailability
+  };
 })();
 
 
