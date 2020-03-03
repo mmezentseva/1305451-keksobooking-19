@@ -12,6 +12,7 @@
   var RADIX_NUMBER = 10;
   var HALF = 2;
   var MAINPIN_AFTER_HEIGHT = 22;
+  var OPACITY_OFF = 0;
 
   var getCoordinates = function (point, size) {
     return parseInt(point, RADIX_NUMBER) + Math.round(size / HALF);
@@ -33,7 +34,7 @@
 
     fieldsetHeader.setAttribute('disabled', 'disabled');
     addressForm.setAttribute('value', mainPinCoordinate);
-    mapFilters.classList.add('map__filters--disabled');
+    mapFilters.style.opacity = OPACITY_OFF;
     toggleElementAvailability(formInput, true);
   };
 
@@ -47,7 +48,6 @@
     map.classList.remove('map--faded');
     fieldsetHeader.removeAttribute('disabled');
     formAd.classList.remove('ad-form--disabled');
-    mapFilters.classList.remove('map__filters--disabled');
     addressForm.setAttribute('value', mainPinCoordinateActive);
     toggleElementAvailability(formInput, false);
   };

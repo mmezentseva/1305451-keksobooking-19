@@ -1,30 +1,33 @@
 'use strict';
 
 (function () {
-  var similarListElement = document.querySelector('.map__pins');
-  var similarElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var housingType = document.querySelector('#housing-type');
+  var currentValue;
+  var TIMEOUT_DEBOUNCE = 500;
+  var advertisements = [];
 
-  var xOffset = similarElementTemplate.offsetWidth;
-  var yOffset = similarElementTemplate.offsetTop;
-
-  var renderPinTemplate = function (pin) {
-    var newPinElement = similarElementTemplate.cloneNode(true);
-
-    newPinElement.style.left = pin.location.x - xOffset + 'px';
-    newPinElement.style.top = pin.location.y - yOffset + 'px';
-    newPinElement.querySelector('img').src = pin.author.avatar;
-    newPinElement.querySelector('img').alt = pin.offer.title;
-
-    return newPinElement;
+  var updateAds = function () {
+    if (housingType.value === 'any') {
+      window.render(window.util.shuffle(advertisements));
+    } else {
+      var sameHousingType = advertisements.filter(function (it) {
+        return it.offer.type === currentValue;
+      });
+      window.render(sameHousingType);
+    }
   };
 
-  var successHandler = function (advertisements) {
-    var fragment = document.createDocumentFragment();
+  housingType.addEventListener('change', function () {
+    currentValue = housingType.value;
+    window.setTimeout(function () {
+      updateAds();
+    }, TIMEOUT_DEBOUNCE);
+  });
 
-    for (var i = 0; i < advertisements.length; i++) {
-      fragment.appendChild(renderPinTemplate(advertisements[i]));
-    }
-    similarListElement.appendChild(fragment);
+  var successHandler = function (data) {
+    advertisements = data;
+    var shuffleAds = window.util.shuffle(advertisements);
+    window.render(shuffleAds);
   };
 
   var errorHandler = function (errorMessage) {
@@ -44,4 +47,3 @@
     errorHandler: errorHandler
   };
 })();
-

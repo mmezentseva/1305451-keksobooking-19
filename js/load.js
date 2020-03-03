@@ -6,6 +6,8 @@
     OK: 200
   };
   var TIMEOUT_IN_MS = 10000;
+  var OPACITY_ON = 1;
+  var mapFilters = document.querySelector('.map__filters');
 
   window.load = function (successHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
@@ -14,6 +16,7 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         successHandler(xhr.response);
+        mapFilters.style.opacity = OPACITY_ON;
       } else {
         errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }
