@@ -6,7 +6,7 @@
   var formInput = document.querySelectorAll('.ad-form__element');
   var formAd = document.querySelector('.ad-form');
   var addressForm = document.querySelector('#address');
-  var mapFilters = document.querySelector('.map__filters');
+  var mapFilter = document.querySelectorAll('.map__filter');
   var mapPinMain = document.querySelector('.map__pin--main');
 
   var RADIX_NUMBER = 10;
@@ -33,13 +33,13 @@
 
     fieldsetHeader.setAttribute('disabled', 'disabled');
     addressForm.setAttribute('value', mainPinCoordinate);
-    mapFilters.classList.add('map__filters--disabled');
+    toggleElementAvailability(mapFilter, true);
     toggleElementAvailability(formInput, true);
   };
 
   var activatePageHandler = function (evt) {
     if (evt.which === 1 || evt.key === window.util.ENTER_KEY) {
-      window.load(window.pin.successHandler, window.pin.errorHandler);
+      window.load(window.filter.successHandler, window.filter.errorHandler);
       mapPinMain.removeEventListener('mousedown', activatePageHandler);
       mapPinMain.removeEventListener('keydown', activatePageHandler);
     }
@@ -47,7 +47,6 @@
     map.classList.remove('map--faded');
     fieldsetHeader.removeAttribute('disabled');
     formAd.classList.remove('ad-form--disabled');
-    mapFilters.classList.remove('map__filters--disabled');
     addressForm.setAttribute('value', mainPinCoordinateActive);
     toggleElementAvailability(formInput, false);
   };
@@ -56,6 +55,10 @@
   mapPinMain.addEventListener('keydown', activatePageHandler);
 
   deactivateMap();
+
+  window.map = {
+    toggleElementAvailability: toggleElementAvailability
+  };
 })();
 
 

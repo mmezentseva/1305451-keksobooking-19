@@ -3,6 +3,8 @@
 (function () {
   var similarListElement = document.querySelector('.map__pins');
   var similarElementTemplate = document.querySelector('#pin').content.querySelector('.map__pin');
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var ADS_NUMBERS = 5;
 
   var xOffset = similarElementTemplate.offsetWidth;
   var yOffset = similarElementTemplate.offsetTop;
@@ -18,30 +20,15 @@
     return newPinElement;
   };
 
-  var successHandler = function (advertisements) {
-    var fragment = document.createDocumentFragment();
-
-    for (var i = 0; i < advertisements.length; i++) {
-      fragment.appendChild(renderPinTemplate(advertisements[i]));
+  var render = function (data) {
+    similarListElement.innerHTML = '';
+    similarListElement.appendChild(mapPinMain);
+    var takeNumber = data.length > ADS_NUMBERS ? ADS_NUMBERS : data.length;
+    for (var i = 0; i < takeNumber; i++) {
+      similarListElement.appendChild(renderPinTemplate(data[i]));
     }
-    similarListElement.appendChild(fragment);
   };
-
-  var errorHandler = function (errorMessage) {
-    var node = document.createElement('div');
-    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
-    node.style.position = 'absolute';
-    node.style.left = 0;
-    node.style.right = 0;
-    node.style.fontSize = '30px';
-
-    node.textContent = errorMessage;
-    document.body.insertAdjacentElement('afterbegin', node);
-  };
-
   window.pin = {
-    successHandler: successHandler,
-    errorHandler: errorHandler
+    render: render
   };
 })();
-

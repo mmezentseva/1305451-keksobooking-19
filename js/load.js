@@ -6,6 +6,7 @@
     OK: 200
   };
   var TIMEOUT_IN_MS = 10000;
+  var mapFilter = document.querySelectorAll('.map__filter');
 
   window.load = function (successHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
@@ -14,6 +15,7 @@
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         successHandler(xhr.response);
+        window.map.toggleElementAvailability(mapFilter, false);
       } else {
         errorHandler('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
       }

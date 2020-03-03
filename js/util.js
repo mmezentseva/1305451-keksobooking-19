@@ -22,10 +22,21 @@
     return randomLengthArray;
   };
 
+  var shuffle = function (array) {
+    for (var i = array.length - 1; i > 0; i--) {
+      var j = getRandomNumberInRange(array.length);
+      var shuffleElement = array[i];
+      array[i] = array[j];
+      array[j] = shuffleElement;
+    }
+    return array;
+  };
+
   window.util = {
     ENTER_KEY: ENTER_KEY,
     getRandomNumberInRange: getRandomNumberInRange,
     getRandomElementFromArray: getRandomElementFromArray,
-    getRandomLengthArray: getRandomLengthArray
+    getRandomLengthArray: getRandomLengthArray,
+    shuffle: shuffle
   };
 })();
