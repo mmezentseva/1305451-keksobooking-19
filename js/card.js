@@ -19,7 +19,7 @@
     return 'img/avatars/user0' + id + '.png';
   };
 
-  var createRandomAds = function (avatarID) {
+  var createRandomAd = function (avatarID) {
     var xCoordinate = window.util.getRandomNumberInRange(map.clientWidth);
     var yCoordinate = window.util.getRandomNumberInRange(LOCATION_Y_MAX, LOCATION_Y_MIN);
     return {
@@ -28,7 +28,7 @@
       },
       offer: {
         title: window.util.getRandomElementFromArray(TITLES),
-        address: xCoordinate + ',' + yCoordinate,
+        address: xCoordinate + ', ' + yCoordinate,
         price: window.util.getRandomElementFromArray(PRICES),
         type: window.util.getRandomElementFromArray(TYPES),
         rooms: window.util.getRandomElementFromArray(ROOMS),
@@ -49,7 +49,7 @@
   var generate = function (number) {
     var ads = [];
     for (var i = 1; i <= number; i++) {
-      ads.push(createRandomAds(i));
+      ads.push(createRandomAd(i));
     }
     return ads;
   };
