@@ -40,13 +40,17 @@
     return newCardElement;
   };
 
-  var hasProperties = function (obj) {
-    for (var i in obj) {
-      if (obj.hasOwnProperty(i) === undefined) {
-        delete obj.key;
-      }
-    }
-    return obj;
+  var hasProperties = function (card) {
+    var keys = Object.keys(card);
+    keys.forEach(function (key) {
+      var list = card[key];
+      var props = Object.keys(list);
+      props.forEach(function (prop) {
+        if (list[prop] === undefined) {
+          delete list.prop;
+        }
+      });
+    });
   };
 
   var advertisements = window.card.generate(AD_COUNT);
