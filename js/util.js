@@ -3,6 +3,7 @@
 (function () {
   var MIN_VALUE = 0;
   var ENTER_KEY = 'Enter';
+  var ESC_KEY = 'Escape';
 
   var getRandomNumberInRange = function (max, min) {
     min = min || MIN_VALUE;
@@ -31,9 +32,24 @@
     }
     return array;
   };
+  /*
+  var hasProperties = function (card) {
+    var keys = Object.keys(card);
+    keys.forEach(function (key) {
+      var list = card[key];
+      var props = Object.keys(list);
+      props.forEach(function (prop) {
+        if (list[prop] === undefined) {
+          delete list.prop;
+        }
+      });
+    });
+  };
+*/
 
   window.util = {
     ENTER_KEY: ENTER_KEY,
+    ESC_KEY: ESC_KEY,
     getRandomNumberInRange: getRandomNumberInRange,
     getRandomElementFromArray: getRandomElementFromArray,
     getRandomLengthArray: getRandomLengthArray,
