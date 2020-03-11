@@ -41,7 +41,7 @@
     if (evt.which === 1 || evt.key === window.util.ENTER_KEY) {
       // window.load(window.filter.successHandler, window.filter.errorHandler);
       window.pin.render();
-      window.adCard.renderCard();
+      // window.adCard.renderCard();
       mapPinMain.removeEventListener('mousedown', activatePageHandler);
       mapPinMain.removeEventListener('keydown', activatePageHandler);
     }
