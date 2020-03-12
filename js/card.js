@@ -42,6 +42,9 @@
       location: {
         x: xCoordinate,
         y: yCoordinate
+      },
+      selectHandler: function () {
+        window.adCard.renderCardTemplate(this);
       }
     };
   };
