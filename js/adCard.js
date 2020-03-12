@@ -78,3 +78,4 @@
     renderCardTemplate: renderCardTemplate
   };
 })();
+
