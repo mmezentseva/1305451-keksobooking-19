@@ -2,6 +2,8 @@
 
 (function () {
   var similarElementTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  
+  var ADS_NUMBER = 8;
 
   var valueToTranslate = {
     'flat': 'квартира',
@@ -55,10 +57,10 @@
     if (card.offer.avatar) {
       newCardElement.querySelector('.popup__avatar').src = card.offer.avatar;
     }
-
-    return newCardElement;
+       return newCardElement;
   };
-
+    
+    
   var removeCard = function (card) {
     card.addEventListener('click', function (evt) {
       var popupClose = document.querySelector('.popup__close');
