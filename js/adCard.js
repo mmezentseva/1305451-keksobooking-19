@@ -1,9 +1,6 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-  var popupClose = document.querySelectorAll('.popup__close');
-  var filterContainer = document.querySelector('.map__filters-container');
   var similarElementTemplate = document.querySelector('#card').content.querySelector('.map__card');
 
   var valueToTranslate = {
@@ -59,23 +56,34 @@
       newCardElement.querySelector('.popup__avatar').src = card.offer.avatar;
     }
 
-    map.insertBefore(newCardElement, filterContainer);
+    return newCardElement;
+  };
 
-    newCardElement.addEventListener('click', function (evt) {
+  var removeCard = function (card) {
+    card.addEventListener('click', function (evt) {
+      var popupClose = document.querySelector('.popup__close');
       if (evt.target === popupClose) {
-        newCardElement.remove();
+        card.remove();
       }
     });
-
     document.addEventListener('keydown', function (evt) {
       if (evt.key === window.util.ESC_KEY) {
-        newCardElement.remove();
+        card.remove();
       }
     });
   };
 
+  var removeDoubleCard = function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
+  };
+
   window.adCard = {
-    renderCardTemplate: renderCardTemplate
+    renderCardTemplate: renderCardTemplate,
+    removeCard: removeCard,
+    removeDoubleCard: removeDoubleCard
   };
 })();
 
