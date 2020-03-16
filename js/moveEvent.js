@@ -17,6 +17,7 @@
 
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
+    var dragged = false;
 
     var startCoords = {
       x: evt.clientX,
@@ -45,21 +46,28 @@
       addressForm.setAttribute('value', window.map.getCoordsBottom());
     };
 
-    var onMouseMove = function (moveEvt) {
+    var mouseMoveHandler = function (moveEvt) {
       moveEvt.preventDefault();
+      dragged = true;
 
       getLocation(moveEvt);
     };
 
-    var onMouseUp = function (upEvt) {
+    var mouseUpHandler = function (upEvt) {
       upEvt.preventDefault();
 
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
+      document.removeEventListener('mousemove', mouseMoveHandler);
+      document.removeEventListener('mouseup', mouseUpHandler);
+
+      if (dragged) {
+        mapPinMain.style.top = (mapPinMain.offsetTop - startCoords.y) + 'px';
+        mapPinMain.style.left = (mapPinMain.offsetLeft - startCoords.x) + 'px';
+        addressForm.setAttribute('value', window.map.getCoordsBottom());
+      }
     };
 
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
+    document.addEventListener('mousemove', mouseMoveHandler);
+    document.addEventListener('mouseup', mouseUpHandler);
   });
 
 })();
