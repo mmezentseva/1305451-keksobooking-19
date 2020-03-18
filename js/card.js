@@ -14,6 +14,7 @@
   var LOCATION_Y_MIN = 130;
   var LOCATION_Y_MAX = 630;
   var map = document.querySelector('.map');
+  var filterContainer = document.querySelector('.map__filters-container');
 
   var getAvatar = function (id) {
     return 'img/avatars/user0' + id + '.png';
@@ -42,6 +43,12 @@
       location: {
         x: xCoordinate,
         y: yCoordinate
+      },
+      selectHandler: function () {
+        window.adCard.removeDouble();
+        var element = window.adCard.renderTemplate(this);
+        map.insertBefore(element, filterContainer);
+        window.adCard.remove(element);
       }
     };
   };
@@ -57,4 +64,5 @@
   window.card = {
     generate: generate
   };
+
 })();

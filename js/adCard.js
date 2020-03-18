@@ -1,10 +1,8 @@
 'use strict';
 
 (function () {
-  var map = document.querySelector('.map');
-  var filterContainer = document.querySelector('.map__filters-container');
   var similarElementTemplate = document.querySelector('#card').content.querySelector('.map__card');
-  var ADS_NUMBER = 8;
+
   var valueToTranslate = {
     'flat': 'квартира',
     'house': 'дом',
@@ -57,21 +55,42 @@
     if (card.offer.avatar) {
       newCardElement.querySelector('.popup__avatar').src = card.offer.avatar;
     }
-
     return newCardElement;
   };
 
-  var advertisements = window.card.generate(ADS_NUMBER);
-
-  var renderCard = function () {
-    var fragment = document.createDocumentFragment();
-    for (var i = 0; i < advertisements.length; i++) {
-      fragment.appendChild(renderCardTemplate(advertisements[i]));
+  var escPressHandler = function (evt) {
+    var mapCard = document.querySelector('.map__card');
+    if (evt.key === window.util.ESC_KEY) {
+      mapCard.remove();
     }
-    map.insertBefore(fragment, filterContainer);
+  };
+
+  var removeCardEsc = function () {
+    document.addEventListener('keydown', escPressHandler);
+  };
+
+  var removeCard = function (card) {
+    card.addEventListener('click', function (evt) {
+      var popupClose = document.querySelector('.popup__close');
+      if (evt.target === popupClose) {
+        card.remove();
+        document.removeEventListener('keydown', escPressHandler);
+      }
+    });
+    removeCardEsc();
+  };
+
+  var removeDoubleCard = function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
   };
 
   window.adCard = {
-    renderCard: renderCard
+    renderTemplate: renderCardTemplate,
+    remove: removeCard,
+    removeDouble: removeDoubleCard
   };
 })();
+

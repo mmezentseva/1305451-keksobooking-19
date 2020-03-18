@@ -3,6 +3,17 @@
 (function () {
   var capacity = document.querySelector('#capacity');
   var roomNumber = document.querySelector('#room_number');
+  var timeInInput = document.querySelector('#timein');
+  var timeOutInput = document.querySelector('#timeout');
+  var priceInput = document.querySelector('#price');
+  var typeHouseInput = document.querySelector('#type');
+
+  var houseTypeAttribute = {
+    bungalo: 0,
+    flat: 1000,
+    house: 5000,
+    palace: 1000,
+  };
 
   var findDisabledEl = function () {
 
@@ -41,6 +52,23 @@
       }
     }
   });
+
+  timeInInput.addEventListener('change', function () {
+    timeInInput.options[timeInInput.selectedIndex].value = timeOutInput.value;
+  });
+
+  timeOutInput.addEventListener('change', function () {
+    var index = timeOutInput.options.selectedIndex;
+    timeInInput.options[index].selected = true;
+  });
+
+
+  typeHouseInput.addEventListener('change', function () {
+    var index = typeHouseInput.options.selectedIndex;
+    var value = typeHouseInput.options[index].value;
+
+    priceInput.setAttribute('min', houseTypeAttribute[value]);
+    priceInput.setAttribute('placeholder', houseTypeAttribute[value]);
+  });
+
 })();
-
-

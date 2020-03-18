@@ -3,6 +3,7 @@
 (function () {
   var MIN_VALUE = 0;
   var ENTER_KEY = 'Enter';
+  var ESC_KEY = 'Escape';
 
   var getRandomNumberInRange = function (max, min) {
     min = min || MIN_VALUE;
@@ -34,6 +35,7 @@
 
   window.util = {
     ENTER_KEY: ENTER_KEY,
+    ESC_KEY: ESC_KEY,
     getRandomNumberInRange: getRandomNumberInRange,
     getRandomElementFromArray: getRandomElementFromArray,
     getRandomLengthArray: getRandomLengthArray,
