@@ -45,10 +45,10 @@
         y: yCoordinate
       },
       selectHandler: function () {
-        window.adCard.removeDoubleCard();
-        var element = window.adCard.renderCardTemplate(this);
+        window.adCard.removeDouble();
+        var element = window.adCard.renderTemplate(this);
         map.insertBefore(element, filterContainer);
-        window.adCard.removeCard(element);
+        window.adCard.remove(element);
       }
     };
   };

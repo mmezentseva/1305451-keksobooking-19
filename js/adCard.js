@@ -58,19 +58,26 @@
     return newCardElement;
   };
 
+  var escPressHandler = function (evt) {
+    var mapCard = document.querySelector('.map__card');
+    if (evt.key === window.util.ESC_KEY) {
+      mapCard.remove();
+    }
+  };
+
+  var removeCardEsc = function () {
+    document.addEventListener('keydown', escPressHandler);
+  };
 
   var removeCard = function (card) {
     card.addEventListener('click', function (evt) {
       var popupClose = document.querySelector('.popup__close');
       if (evt.target === popupClose) {
         card.remove();
+        document.removeEventListener('keydown', escPressHandler);
       }
     });
-    document.addEventListener('keydown', function (evt) {
-      if (evt.key === window.util.ESC_KEY) {
-        card.remove();
-      }
-    });
+    removeCardEsc();
   };
 
   var removeDoubleCard = function () {
@@ -81,9 +88,9 @@
   };
 
   window.adCard = {
-    renderCardTemplate: renderCardTemplate,
-    removeCard: removeCard,
-    removeDoubleCard: removeDoubleCard
+    renderTemplate: renderCardTemplate,
+    remove: removeCard,
+    removeDouble: removeDoubleCard
   };
 })();
 
