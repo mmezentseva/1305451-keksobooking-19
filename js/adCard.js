@@ -2,6 +2,9 @@
 
 (function () {
   var similarElementTemplate = document.querySelector('#card').content.querySelector('.map__card');
+  var popupClose = '.popup__close';
+  var popup = '.map__card';
+
 
   var valueToTranslate = {
     'flat': 'квартира',
@@ -58,19 +61,9 @@
     return newCardElement;
   };
 
-
-  var removeCard = function (card) {
-    card.addEventListener('click', function (evt) {
-      var popupClose = document.querySelector('.popup__close');
-      if (evt.target === popupClose) {
-        card.remove();
-      }
-    });
-    document.addEventListener('keydown', function (evt) {
-      if (evt.key === window.util.ESC_KEY) {
-        card.remove();
-      }
-    });
+  var removeElement = function () {
+    window.util.escPressHandler(popup);
+    window.util.closeOnclickBtnHandler(popupClose, popup);
   };
 
   var removeDoubleCard = function () {
@@ -81,9 +74,9 @@
   };
 
   window.adCard = {
-    renderCardTemplate: renderCardTemplate,
-    removeCard: removeCard,
-    removeDoubleCard: removeDoubleCard
+    renderTemplate: renderCardTemplate,
+    removeElement: removeElement,
+    removeDouble: removeDoubleCard,
   };
 })();
 

@@ -68,7 +68,8 @@
 
   window.map = {
     toggleElementAvailability: toggleElementAvailability,
-    getCoordsBottom: getCoordsBottom
+    getCoordsBottom: getCoordsBottom,
+    deactivateMap: deactivateMap
   };
 })();
 

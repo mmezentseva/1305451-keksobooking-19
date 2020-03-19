@@ -4,6 +4,9 @@
   var MIN_VALUE = 0;
   var ENTER_KEY = 'Enter';
   var ESC_KEY = 'Escape';
+  var StatusCode = {
+    OK: 200
+  };
 
   var getRandomNumberInRange = function (max, min) {
     min = min || MIN_VALUE;
@@ -33,12 +36,46 @@
     return array;
   };
 
+  var escPressHandler = function (className) {
+    var element = document.querySelector(className);
+    document.addEventListener('keydown', function (evt) {
+      if (evt.key === window.util.ESC_KEY) {
+        element.remove();
+      }
+    });
+  };
+
+  var closeOnClickHandler = function (className) {
+    var element = document.querySelector(className);
+    document.addEventListener('click', function (evt) {
+      if (evt.target === element) {
+        element.remove();
+      }
+    });
+    document.removeEventListener('keydown', escPressHandler(className));
+  };
+
+  var closeOnclickBtnHandler = function (BtnclassName, elementClassName) {
+    var button = document.querySelector(BtnclassName);
+    var element = document.querySelector(elementClassName);
+    document.addEventListener('click', function (evt) {
+      if (evt.target === button) {
+        element.remove();
+      }
+    });
+    document.removeEventListener('keydown', escPressHandler(elementClassName));
+  };
+
   window.util = {
     ENTER_KEY: ENTER_KEY,
     ESC_KEY: ESC_KEY,
     getRandomNumberInRange: getRandomNumberInRange,
     getRandomElementFromArray: getRandomElementFromArray,
     getRandomLengthArray: getRandomLengthArray,
-    shuffle: shuffle
+    shuffle: shuffle,
+    escPressHandler: escPressHandler,
+    closeOnClickHandler: closeOnClickHandler,
+    closeOnclickBtnHandler: closeOnclickBtnHandler,
+    StatusCode: StatusCode
   };
 })();
