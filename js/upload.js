@@ -7,6 +7,11 @@
   var errorBtn = '.error__button';
   var successPopup = '.success';
   var errorPopup = '.error';
+  var map = document.querySelector('.map');
+  var similarListElement = document.querySelector('.map__pins');
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var mapOverlay = document.querySelector('.map__overlay');
+  var addressForm = document.querySelector('#address');
 
   var main = document.querySelector('main');
   var successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
@@ -15,20 +20,31 @@
   var errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
   var newErrorPopup = errorPopupTemplate.cloneNode(true);
 
+  var defaultPinMainCoords = function () {
+    mapPinMain.style.left = window.util.StartMainPinCoords.LEFT;
+    mapPinMain.style.top = window.util.StartMainPinCoords.TOP;
+    addressForm.setAttribute('value', window.map.getCoordsCenter());
+  };
+
   var success = function () {
     main.insertAdjacentElement('afterbegin', newSuccessPopup);
     window.util.escPressHandler(successPopup);
     window.util.closeOnClickHandler(successPopup);
+
+    map.classList.add('map--faded');
+    formAd.reset();
+    formAd.classList.add('ad-form--disabled');
+
+    similarListElement.innerHTML = '';
+    similarListElement.appendChild(mapPinMain);
+    similarListElement.appendChild(mapOverlay);
+
+    mapPinMain.addEventListener('mousedown', window.map.activatePageHandler);
+    mapPinMain.addEventListener('keydown', window.map.activatePageHandler);
+
+    defaultPinMainCoords();
   };
 
-  /*
-  var success = function (cb) {
-    main.insertAdjacentElement('afterbegin', newSuccessPopup);
-    window.util.escPressHandler(successPopup);
-    window.util.closeOnClickHandler(successPopup);
-    cb();
-  };
-*/
   var error = function () {
     main.insertAdjacentElement('afterbegin', newErrorPopup);
     window.util.escPressHandler(errorPopup);
@@ -59,7 +75,6 @@
   formAd.addEventListener('submit', function (evt) {
     window.upload(new FormData(formAd), function () {
       success();
-      // success(window.location.reload(true));
     });
     evt.preventDefault();
   });
@@ -69,5 +84,3 @@
   });
 
 })();
-
-

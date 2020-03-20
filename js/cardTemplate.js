@@ -73,8 +73,8 @@
     }
   };
 
-  window.adCard = {
-    renderTemplate: renderCardTemplate,
+  window.cardTemplate = {
+    render: renderCardTemplate,
     removeElement: removeElement,
     removeDouble: removeDoubleCard,
   };

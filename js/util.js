@@ -7,6 +7,10 @@
   var StatusCode = {
     OK: 200
   };
+  var StartMainPinCoords = {
+    LEFT: '570px',
+    TOP: '375px'
+  };
 
   var getRandomNumberInRange = function (max, min) {
     min = min || MIN_VALUE;
@@ -76,6 +80,7 @@
     escPressHandler: escPressHandler,
     closeOnClickHandler: closeOnClickHandler,
     closeOnclickBtnHandler: closeOnclickBtnHandler,
-    StatusCode: StatusCode
+    StatusCode: StatusCode,
+    StartMainPinCoords: StartMainPinCoords
   };
 })();
