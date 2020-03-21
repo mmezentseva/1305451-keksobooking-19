@@ -54,7 +54,8 @@
   });
 
   timeInInput.addEventListener('change', function () {
-    timeInInput.options[timeInInput.selectedIndex].value = timeOutInput.value;
+    var index = timeInInput.options.selectedIndex;
+    timeOutInput.options[index].selected = true;
   });
 
   timeOutInput.addEventListener('change', function () {

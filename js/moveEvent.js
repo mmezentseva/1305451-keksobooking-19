@@ -4,7 +4,6 @@
   var mapPinMain = document.querySelector('.map__pin--main');
   var addressForm = document.querySelector('#address');
   var map = document.querySelector('.map');
-
   var HALF = 2;
   var LOCATION_Y_MIN = 130;
   var LOCATION_Y_MAX = 630;
@@ -18,7 +17,6 @@
 
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
-
     var dragged = false;
 
     var startCoords = {
@@ -30,18 +28,11 @@
 
       if (moveEvt.clientX < limits.right && moveEvt.clientX > limits.left &&
         moveEvt.pageY < limits.bottom && moveEvt.pageY > limits.top) {
-        
-    var onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-
-      if (moveEvt.clientX < limits.right && moveEvt.clientX > limits.left &&
-          moveEvt.clientY < limits.bottom && moveEvt.clientY > limits.top) {
 
         var shift = {
           x: startCoords.x - moveEvt.clientX,
           y: startCoords.y - moveEvt.clientY
         };
-
 
         startCoords = {
           x: moveEvt.clientX,

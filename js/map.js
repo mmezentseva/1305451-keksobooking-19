@@ -47,9 +47,7 @@
 
   var activatePageHandler = function (evt) {
     if (evt.which === 1 || evt.key === window.util.ENTER_KEY) {
-      // window.load(window.filter.successHandler, window.filter.errorHandler);
-      window.pin.render();
-      // window.adCard.renderCard();
+      window.load(window.filter.successHandler, window.filter.errorHandler);
       mapPinMain.removeEventListener('mousedown', activatePageHandler);
       mapPinMain.removeEventListener('keydown', activatePageHandler);
     }
@@ -68,7 +66,10 @@
 
   window.map = {
     toggleElementAvailability: toggleElementAvailability,
-    getCoordsBottom: getCoordsBottom
+    getCoordsCenter: getCoordsCenter,
+    getCoordsBottom: getCoordsBottom,
+    deactivate: deactivateMap,
+    activatePageHandler: activatePageHandler
   };
 })();
 

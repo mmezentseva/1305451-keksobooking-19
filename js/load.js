@@ -2,9 +2,6 @@
 
 (function () {
   var URL = 'https://js.dump.academy/keksobooking/data';
-  var StatusCode = {
-    OK: 200
-  };
   var TIMEOUT_IN_MS = 10000;
   var mapFilter = document.querySelectorAll('.map__filter');
 
@@ -13,7 +10,7 @@
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      if (xhr.status === StatusCode.OK) {
+      if (xhr.status === window.util.StatusCode.OK) {
         successHandler(xhr.response);
         window.map.toggleElementAvailability(mapFilter, false);
       } else {
