@@ -17,6 +17,7 @@
   };
 
   var valueToPlural = {
+    0: ' комнат',
     1: ' комната для ',
     2: ' комнаты для ',
     3: ' комнаты для ',
@@ -56,7 +57,7 @@
       newCardElement.querySelector('.popup__photos').src = card.offer.photos;
     }
     if (card.offer.avatar) {
-      newCardElement.querySelector('.popup__avatar').src = card.offer.avatar;
+      newCardElement.querySelector('.popup__avatar').src = card.author.avatar;
     }
     return newCardElement;
   };
