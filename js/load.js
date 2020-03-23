@@ -5,6 +5,11 @@
   var TIMEOUT_IN_MS = 10000;
   var mapFilter = document.querySelectorAll('.map__filter');
 
+  var ErrorMessage = {
+    ERROR_SERVER: 'Произошла ошибка соединения. Пожалуйста, обновите страницу.',
+    ERROR_TIMEOUT: 'Сервер долго не отвечает. Пожалуйста, обновите страницу.'
+  };
+
   window.load = function (successHandler, errorHandler) {
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
@@ -19,11 +24,11 @@
     });
 
     xhr.addEventListener('error', function () {
-      errorHandler('Произошла ошибка соединения');
+      errorHandler(ErrorMessage.ERROR_SERVER);
     });
 
     xhr.addEventListener('timeout', function () {
-      errorHandler('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
+      errorHandler(ErrorMessage.ERROR_TIMEOUT);
     });
 
     xhr.timeout = TIMEOUT_IN_MS;

@@ -12,7 +12,7 @@
     bungalo: 0,
     flat: 1000,
     house: 5000,
-    palace: 1000,
+    palace: 10000,
   };
 
   var findDisabledEl = function () {
@@ -53,16 +53,13 @@
     }
   });
 
-  timeInInput.addEventListener('change', function () {
-    var index = timeInInput.options.selectedIndex;
-    timeOutInput.options[index].selected = true;
+  timeInInput.addEventListener('change', function (evt) {
+    timeOutInput.value = evt.target.value;
   });
 
-  timeOutInput.addEventListener('change', function () {
-    var index = timeOutInput.options.selectedIndex;
-    timeInInput.options[index].selected = true;
+  timeOutInput.addEventListener('change', function (evt) {
+    timeInInput.value = evt.target.value;
   });
-
 
   typeHouseInput.addEventListener('change', function () {
     var index = typeHouseInput.options.selectedIndex;
