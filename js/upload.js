@@ -35,8 +35,7 @@
     formAd.reset();
     formAd.classList.add('ad-form--disabled');
 
-    similarListElement.innerHTML = '';
-    similarListElement.appendChild(mapPinMain);
+    window.pin.remove();
     similarListElement.appendChild(mapOverlay);
 
     mapPinMain.addEventListener('mousedown', window.map.activatePageHandler);

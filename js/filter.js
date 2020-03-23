@@ -18,14 +18,16 @@
   var currentGuestsValue = ANY;
   var TIMEOUT_DEBOUNCE = 500;
   var advertisements = [];
+  var MIDDLE_PRICE = 10000;
+  var HIGHT_PRICE = 50000;
 
-  var housingPriceValue = function (property) {
-    if (property < 10000) {
+  var getHousingPriceValue = function (property) {
+    if (property <= MIDDLE_PRICE) {
       property = 'low';
-    } else if (property > 10000 && property < 50000) {
+    } else if (property > MIDDLE_PRICE && property < HIGHT_PRICE) {
       property = 'middle';
     } else {
-      property = 'hight';
+      property = 'high';
     }
     return property;
   };
@@ -35,7 +37,7 @@
   };
 
   var filterPrice = function (advertisement) {
-    return currentPriceValue === ANY ? true : housingPriceValue(advertisement.offer.price) === currentPriceValue;
+    return currentPriceValue === ANY ? true : getHousingPriceValue(advertisement.offer.price) === currentPriceValue;
   };
 
   var filterRooms = function (advertisement) {
@@ -68,6 +70,7 @@
   housingGuests.addEventListener('change', function () {
     currentGuestsValue = housingGuests.value === ANY ? ANY : parseInt(housingGuests.value, 10);
     window.setTimeout(function () {
+      window.cardTemplate.removeElement();
       updateAds();
     }, TIMEOUT_DEBOUNCE);
   });
@@ -75,6 +78,7 @@
   housingRooms.addEventListener('change', function () {
     currentRoomsValue = housingRooms.value === ANY ? ANY : parseInt(housingRooms.value, 10);
     window.setTimeout(function () {
+      window.cardTemplate.removeElement();
       updateAds();
     }, TIMEOUT_DEBOUNCE);
   });
@@ -82,6 +86,7 @@
   housingPrice.addEventListener('change', function () {
     currentPriceValue = housingPrice.value;
     window.setTimeout(function () {
+      window.cardTemplate.removeElement();
       updateAds();
     }, TIMEOUT_DEBOUNCE);
   });
@@ -89,45 +94,27 @@
   housingType.addEventListener('change', function () {
     currentTypeValue = housingType.value;
     window.setTimeout(function () {
+      window.cardTemplate.removeElement();
       updateAds();
     }, TIMEOUT_DEBOUNCE);
   });
 
-  featureWifi.addEventListener('change', function () {
-    window.setTimeout(function () {
-      updateAds();
-    }, TIMEOUT_DEBOUNCE);
-  });
+  var changeFeatureHandler = function (element) {
+    element.addEventListener('change', function () {
+      window.setTimeout(function () {
+        window.cardTemplate.removeElement();
+        updateAds();
+      }, TIMEOUT_DEBOUNCE);
+    });
+  };
 
-  featureDishwasher.addEventListener('change', function () {
-    window.setTimeout(function () {
-      updateAds();
-    }, TIMEOUT_DEBOUNCE);
-  });
-
-  featureParking.addEventListener('change', function () {
-    window.setTimeout(function () {
-      updateAds();
-    }, TIMEOUT_DEBOUNCE);
-  });
-
-  featureWasher.addEventListener('change', function () {
-    window.setTimeout(function () {
-      updateAds();
-    }, TIMEOUT_DEBOUNCE);
-  });
-
-  featureElevator.addEventListener('change', function () {
-    window.setTimeout(function () {
-      updateAds();
-    }, TIMEOUT_DEBOUNCE);
-  });
-
-  featureConditioner.addEventListener('change', function () {
-    window.setTimeout(function () {
-      updateAds();
-    }, TIMEOUT_DEBOUNCE);
-  });
+  changeFeatureHandler(housingType, currentTypeValue);
+  changeFeatureHandler(featureWifi);
+  changeFeatureHandler(featureDishwasher);
+  changeFeatureHandler(featureParking);
+  changeFeatureHandler(featureWasher);
+  changeFeatureHandler(featureElevator);
+  changeFeatureHandler(featureConditioner);
 
   var successHandler = function (data) {
     advertisements = data;

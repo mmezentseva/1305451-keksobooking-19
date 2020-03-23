@@ -27,10 +27,10 @@
         y: data.location.y
       },
       selectHandler: function () {
-        window.cardTemplate.removeDouble();
+        window.cardTemplate.removeElement();
         var element = window.cardTemplate.render(this);
         map.insertBefore(element, filterContainer);
-        window.cardTemplate.removeElement();
+        window.cardTemplate.removeElementByClick();
       }
     };
   };

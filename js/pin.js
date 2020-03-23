@@ -21,9 +21,13 @@
     return newPinElement;
   };
 
-  var render = function (data) {
+  var remove = function () {
     similarListElement.innerHTML = '';
     similarListElement.appendChild(mapPinMain);
+  };
+
+  var render = function (data) {
+    remove();
     var takeNumber = data.length > ADS_NUMBER ? ADS_NUMBER : data.length;
 
     for (var i = 0; i < takeNumber; i++) {
@@ -35,6 +39,7 @@
   };
 
   window.pin = {
-    render: render
+    render: render,
+    remove: remove
   };
 })();

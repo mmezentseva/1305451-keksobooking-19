@@ -12,18 +12,6 @@
     'palace': 'дворец',
     'bungalo': 'бунгало'
   };
-  var toogleToPlural = function (number) {
-    return number === 1 ? ' гостя' : ' гостей';
-  };
-
-  var valueToPlural = {
-    0: ' комнат',
-    1: ' комната для ',
-    2: ' комнаты для ',
-    3: ' комнаты для ',
-    4: ' комнаты для ',
-    5: ' комнат для ',
-  };
 
   var renderCardTemplate = function (card) {
     var newCardElement = similarElementTemplate.cloneNode(true);
@@ -41,8 +29,8 @@
     if (card.offer.type) {
       newCardElement.querySelector('.popup__type').textContent = valueToTranslate[card.offer.type];
     }
-    if (card.offer.rooms && card.offer.guests) {
-      newCardElement.querySelector('.popup__text--capacity').textContent = card.offer.rooms + valueToPlural[card.offer.rooms] + card.offer.guests + toogleToPlural(card.offer.guests);
+    if (card.offer.rooms !== null && card.offer.guests !== null) {
+      newCardElement.querySelector('.popup__text--capacity').textContent = card.offer.rooms + ' комнат(а) для ' + card.offer.guests + ' гостя(ей)';
     }
     if (card.offer.checkin && card.offer.checkout) {
       newCardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + card.offer.checkin + ', ' + 'выезд после ' + card.offer.checkout;
@@ -54,20 +42,20 @@
       newCardElement.querySelector('.popup__description').textContent = card.offer.description;
     }
     if (card.offer.photos) {
-      newCardElement.querySelector('.popup__photos').src = card.offer.photos;
+      newCardElement.querySelector('.popup__photo').src = card.offer.photos[0];
     }
-    if (card.offer.avatar) {
+    if (card.author.avatar) {
       newCardElement.querySelector('.popup__avatar').src = card.author.avatar;
     }
     return newCardElement;
   };
 
-  var removeElement = function () {
+  var removeElementByClick = function () {
     window.util.escPressHandler(popup);
     window.util.closeOnclickBtnHandler(popupClose, popup);
   };
 
-  var removeDoubleCard = function () {
+  var removeElement = function () {
     var mapCard = document.querySelector('.map__card');
     if (mapCard) {
       mapCard.remove();
@@ -76,8 +64,8 @@
 
   window.cardTemplate = {
     render: renderCardTemplate,
+    removeElementByClick: removeElementByClick,
     removeElement: removeElement,
-    removeDouble: removeDoubleCard,
   };
 })();
 
