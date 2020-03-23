@@ -11,6 +11,9 @@
   var featureWasher = document.querySelector('#filter-washer');
   var featureElevator = document.querySelector('#filter-elevator');
   var featureConditioner = document.querySelector('#filter-conditioner');
+  var filter = document.querySelector('.map__filters');
+  var filterItems = filter.querySelectorAll('select, input');
+  var housingFeatures = filter.querySelector('#housing-features');
   var ANY = 'any';
   var currentTypeValue = ANY;
   var currentPriceValue = ANY;
@@ -134,8 +137,19 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
+  var reset = function () {
+    filterItems.forEach(function (it) {
+      it.value = ANY;
+    });
+    var featuresItems = housingFeatures.querySelectorAll('input');
+    featuresItems.forEach(function (element) {
+      element.checked = false;
+    });
+  };
+
   window.filter = {
     successHandler: successHandler,
-    errorHandler: errorHandler
+    errorHandler: errorHandler,
+    reset: reset
   };
 })();

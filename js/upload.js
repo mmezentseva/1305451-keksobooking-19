@@ -20,31 +20,37 @@
   var errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
   var newErrorPopup = errorPopupTemplate.cloneNode(true);
 
-  var defaultPinMainCoords = function () {
+  var makeDefaultPinMainCoords = function () {
     mapPinMain.style.left = window.util.StartMainPinCoords.LEFT;
     mapPinMain.style.top = window.util.StartMainPinCoords.TOP;
     addressForm.setAttribute('value', window.map.getCoordsCenter());
   };
 
-  var success = function () {
-    main.insertAdjacentElement('afterbegin', newSuccessPopup);
-    window.util.escPressHandler(successPopup);
-    window.util.closeOnClickHandler(successPopup);
-
+  var makeDefaltStateMap = function () {
     map.classList.add('map--faded');
     formAd.reset();
     formAd.classList.add('ad-form--disabled');
 
     window.pin.remove();
     similarListElement.appendChild(mapOverlay);
+    window.cardTemplate.removeElement();
+    window.filter.reset();
 
     mapPinMain.addEventListener('mousedown', window.map.activatePageHandler);
     mapPinMain.addEventListener('keydown', window.map.activatePageHandler);
 
-    defaultPinMainCoords();
+    makeDefaultPinMainCoords();
   };
 
-  var error = function () {
+  var showSuccess = function () {
+    main.insertAdjacentElement('afterbegin', newSuccessPopup);
+    window.util.escPressHandler(successPopup);
+    window.util.closeOnClickHandler(successPopup);
+
+    makeDefaltStateMap();
+  };
+
+  var showError = function () {
     main.insertAdjacentElement('afterbegin', newErrorPopup);
     window.util.escPressHandler(errorPopup);
     window.util.closeOnClickHandler(errorPopup);
@@ -64,7 +70,7 @@
     });
 
     xhr.addEventListener('error', function () {
-      error();
+      showError();
     });
 
     xhr.open('POST', URL);
@@ -73,13 +79,13 @@
 
   formAd.addEventListener('submit', function (evt) {
     window.upload(new FormData(formAd), function () {
-      success();
+      showSuccess();
     });
     evt.preventDefault();
   });
 
   formReset.addEventListener('click', function () {
-    formAd.reset();
+    makeDefaltStateMap();
   });
 
 })();
