@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var RADIX_NUMBER = 10;
+  var HALF = 2;
+  var ONE = 1;
+  var MAINPIN_AFTER_HEIGHT = 22;
   var map = document.querySelector('.map');
   var fieldsetHeader = document.querySelector('.ad-form-header');
   var formInput = document.querySelectorAll('.ad-form__element');
@@ -8,11 +12,6 @@
   var addressForm = document.querySelector('#address');
   var mapFilter = document.querySelectorAll('.map__filter');
   var mapPinMain = document.querySelector('.map__pin--main');
-
-  var RADIX_NUMBER = 10;
-  var HALF = 2;
-  var ONE = 1;
-  var MAINPIN_AFTER_HEIGHT = 22;
 
   var getCoordinates = function (point, size, half) {
     half = half || HALF;

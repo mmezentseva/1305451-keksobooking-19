@@ -1,12 +1,12 @@
 'use strict';
-(function () {
 
-  var mapPinMain = document.querySelector('.map__pin--main');
-  var addressForm = document.querySelector('#address');
-  var map = document.querySelector('.map');
+(function () {
   var HALF = 2;
   var LOCATION_Y_MIN = 130;
   var LOCATION_Y_MAX = 630;
+  var mapPinMain = document.querySelector('.map__pin--main');
+  var addressForm = document.querySelector('#address');
+  var map = document.querySelector('.map');
 
   var limits = {
     top: LOCATION_Y_MIN,

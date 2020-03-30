@@ -1,6 +1,10 @@
 'use strict';
 
 (function () {
+  var ANY = 'any';
+  var TIMEOUT_DEBOUNCE = 500;
+  var MIDDLE_PRICE = 10000;
+  var HIGHT_PRICE = 50000;
   var housingType = document.querySelector('#housing-type');
   var housingPrice = document.querySelector('#housing-price');
   var housingRooms = document.querySelector('#housing-rooms');
@@ -14,15 +18,11 @@
   var filter = document.querySelector('.map__filters');
   var filterItems = filter.querySelectorAll('select, input');
   var housingFeatures = filter.querySelector('#housing-features');
-  var ANY = 'any';
   var currentTypeValue = ANY;
   var currentPriceValue = ANY;
   var currentRoomsValue = ANY;
   var currentGuestsValue = ANY;
-  var TIMEOUT_DEBOUNCE = 500;
   var advertisements = [];
-  var MIDDLE_PRICE = 10000;
-  var HIGHT_PRICE = 50000;
 
   var getHousingPriceValue = function (property) {
     if (property <= MIDDLE_PRICE) {

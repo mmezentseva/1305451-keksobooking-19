@@ -8,7 +8,7 @@
   var successPopup = '.success';
   var errorPopup = '.error';
   var map = document.querySelector('.map');
-  var similarListElement = document.querySelector('.map__pins');
+  var mapPin = document.querySelector('.map__pins');
   var mapPinMain = document.querySelector('.map__pin--main');
   var mapOverlay = document.querySelector('.map__overlay');
   var addressForm = document.querySelector('#address');
@@ -32,7 +32,7 @@
     formAd.classList.add('ad-form--disabled');
 
     window.pin.remove();
-    similarListElement.appendChild(mapOverlay);
+    mapPin.appendChild(mapOverlay);
     window.cardTemplate.removeElement();
     window.filter.reset();
 

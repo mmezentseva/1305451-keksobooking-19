@@ -8,11 +8,11 @@
   var priceInput = document.querySelector('#price');
   var typeHouseInput = document.querySelector('#type');
 
-  var houseTypeAttribute = {
-    bungalo: 0,
-    flat: 1000,
-    house: 5000,
-    palace: 10000,
+  var HouseTypeAttribute = {
+    BUNGALO: 0,
+    FLAT: 1000,
+    HOUSE: 5000,
+    PALACE: 10000,
   };
 
   var findDisabledEl = function () {
@@ -65,8 +65,8 @@
     var index = typeHouseInput.options.selectedIndex;
     var value = typeHouseInput.options[index].value;
 
-    priceInput.setAttribute('min', houseTypeAttribute[value]);
-    priceInput.setAttribute('placeholder', houseTypeAttribute[value]);
+    priceInput.setAttribute('min', HouseTypeAttribute[value.toUpperCase()]);
+    priceInput.setAttribute('placeholder', HouseTypeAttribute[value.toUpperCase()]);
   });
 
 })();
